@@ -11,3 +11,12 @@ CREATE TABLE IF NOT EXISTS users (
   created_at   TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
   updated_at   TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS donations (
+  id            SERIAL PRIMARY KEY,
+  donated_at    date DEFAULT NULL,
+  fund          VARCHAR(255) DEFAULT NULL,
+  amount        DECIMAL(10, 2) NOT NULL,
+  city          VARCHAR(100) DEFAULT NULL,
+  state         VARCHAR(100) DEFAULT NULL
+);
