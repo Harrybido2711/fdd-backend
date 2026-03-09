@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS donations (
   donated_at    date DEFAULT NULL,
   fund          VARCHAR(255) DEFAULT NULL,
   amount        DECIMAL(10, 2) NOT NULL,
+  category      VARCHAR(255) DEFAULT NULL,
   city          VARCHAR(100) DEFAULT NULL,
   state         VARCHAR(100) DEFAULT NULL
 );
