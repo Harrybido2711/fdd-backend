@@ -1,19 +1,15 @@
 import csv from 'csv-parser';
 import { Readable } from 'stream';
-import { pgPool } from '../config/database.js';
+import { pool } from '../config/database.js';
 
 export const getDonations = async (req, res) => {
   try {
-    const client = await pgPool.connect();
-
-    const result = await client.query(`
+    const [result] = await pool.query(`
       SELECT * FROM donations
       `);
 
-    client.release();
-
     res.status(200).json({
-      donations: result.rows
+      donations: result
     });
   } catch (err) {
     console.error("Get Donations Error ", err);
@@ -42,14 +38,12 @@ export const uploadFile = async (req, res) => {
       }
 
       try {
-        const client = await pgPool.connect();
-
-        await client.query('TRUNCATE donations');
+        await pool.query('TRUNCATE TABLE donations');
 
         for (const row of results) {
-          await client.query(
-            `INSERT INTO donations (donated_at, fund, amount, category, city, state)
-             VALUES ($1, $2, $3, $4, $5, $6)`,
+          await pool.query(`
+            INSERT INTO donations (donated_at, fund, amount, category, city, state)
+            VALUES (?, ?, ?, ?, ?, ?)`,
             [
               row.donated_at || null,
               row.fund || null,
@@ -60,8 +54,6 @@ export const uploadFile = async (req, res) => {
             ]
           );
         }
-
-        client.release();
 
         res.json({ 
           success: true, 
@@ -88,12 +80,9 @@ export const insertEntry = async (req, res) => {
         error: 'Amount is required' });
     }
 
-    const client = await pgPool.connect();
-
-    const result = await client.query(`
+    const [result] = await pool.query(`
       INSERT INTO donations (donated_at, fund, amount, category, city, state)
-      VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING *`, 
+      VALUES (?, ?, ?, ?, ?, ?)`, 
     [
       donated_at || null,
       fund || null,
@@ -103,11 +92,9 @@ export const insertEntry = async (req, res) => {
       state || null
     ]);
 
-    client.release();
-
     res.status(201).json({
       success: true,
-      donation: result.rows[0]
+      donation: result
     });
   } catch (err) {
     console.error("Database insert error: ", err);
@@ -124,13 +111,9 @@ export const deleteEntry = async (req, res) => {
       return res.status(400).json({ error: 'Id is required' });
     }
 
-    const client = await pgPool.connect();
-
-    const result = await client.query(`
-      DELETE FROM donations WHERE id = $1 RETURNING *`, 
+    const result = await pool.query(`
+      DELETE FROM donations WHERE id = ?`, 
     [id]);
-
-    client.release();
 
     if (result.rows.length == 0) {
       return res.status(404).json({ 
@@ -139,7 +122,7 @@ export const deleteEntry = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      donation: result.rows[0]
+      donation: result
     });
   } catch (err) {
     console.error("Database delete error: ", err);
@@ -161,8 +144,6 @@ export const updateEntry = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Amount must be a number' });
     }
 
-    const client = await pgPool.connect();
-
     const fields = [];
     const values = [];
     let counter = 1;
@@ -179,20 +160,18 @@ export const updateEntry = async (req, res) => {
     }
 
     values.push(id); // last parameter for WHERE id
-    const result = await client.query(
-      `UPDATE donations SET ${fields.join(', ')} WHERE id = $${counter} RETURNING *`,
+    const result = await pool.query(
+      `UPDATE donations SET ${fields.join(', ')} WHERE id = ?`,
       values
     );
 
-    client.release();
-
-    if (result.rows.length === 0) {
+    if (result.affectedRows  === 0) {
       return res.status(404).json({ error: 'Donation not found' });
     }
 
     res.status(200).json({ 
       success: true, 
-      donation: result.rows[0] });
+      donation: result });
 
   } catch (err) {
     console.error("Database update error: ", err);
