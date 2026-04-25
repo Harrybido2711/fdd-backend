@@ -1,11 +1,51 @@
 donated_at,fund,amount,category,city,state
 2024-01-10,General Fund,50.00,Individual,Chicago,IL
 2024-01-11,Education Fund,125.50,Corporate,Evanston,IL
-2024-01-12,Community Fund,75.00,Individual,New York,NY
-2024-01-13,Relief Fund,200.00,Foundation,Los Angeles,CA
-2024-01-14,General Fund,15.00,Individual,Austin,TX
-2024-01-15,Education Fund,500.00,Corporate,Seattle,WA
-2024-01-16,Health Fund,60.00,Individual,Boston,MA
-2024-01-17,Relief Fund,300.00,Foundation,Denver,CO
-2024-01-18,Community Fund,45.25,Individual,Miami,FL
-2024-01-19,General Fund,90.00,Corporate,San Francisco,CA
+2024-01-12,Community Fund,80.00,Foundation,Springfield,IL
+2024-01-13,Relief Fund,35.25,Government,Naperville,IL
+2024-01-14,Health Fund,60.00,Anonymous,Aurora,IL
+2024-01-15,General Fund,220.00,Corporate,New York,NY
+2024-01-16,Education Fund,75.00,Individual,Buffalo,NY
+2024-01-17,Community Fund,310.50,Foundation,Albany,NY
+2024-01-18,Relief Fund,40.00,Government,Rochester,NY
+2024-01-19,Health Fund,95.75,Anonymous,Syracuse,NY
+2024-01-20,General Fund,500.00,Foundation,Los Angeles,CA
+2024-01-21,Education Fund,150.00,Corporate,San Francisco,CA
+2024-01-22,Community Fund,65.25,Individual,San Diego,CA
+2024-01-23,Relief Fund,420.00,Government,Sacramento,CA
+2024-01-24,Health Fund,88.00,Anonymous,Oakland,CA
+2024-01-25,General Fund,120.00,Individual,Austin,TX
+2024-01-26,Education Fund,340.00,Corporate,Houston,TX
+2024-01-27,Community Fund,55.50,Foundation,Dallas,TX
+2024-01-28,Relief Fund,610.00,Government,San Antonio,TX
+2024-01-29,Health Fund,99.99,Anonymous,Fort Worth,TX
+2024-01-30,General Fund,200.00,Corporate,Seattle,WA
+2024-01-31,Education Fund,85.00,Individual,Spokane,WA
+2024-02-01,Community Fund,430.25,Foundation,Tacoma,WA
+2024-02-02,Relief Fund,120.75,Government,Bellevue,WA
+2024-02-03,Health Fund,60.00,Anonymous,Olympia,WA
+2024-02-04,General Fund,310.00,Foundation,Boston,MA
+2024-02-05,Education Fund,140.00,Corporate,Cambridge,MA
+2024-02-06,Community Fund,75.25,Individual,Worcester,MA
+2024-02-07,Relief Fund,500.00,Government,Springfield,MA
+2024-02-08,Health Fund,90.00,Anonymous,Lowell,MA
+2024-02-09,General Fund,275.00,Corporate,Denver,CO
+2024-02-10,Education Fund,60.00,Individual,Boulder,CO
+2024-02-11,Community Fund,410.00,Foundation,Colorado Springs,CO
+2024-02-12,Relief Fund,95.50,Government,Aurora,CO
+2024-02-13,Health Fund,130.00,Anonymous,Fort Collins,CO
+2024-02-14,General Fund,220.00,Individual,Miami,FL
+2024-02-15,Education Fund,330.00,Corporate,Orlando,FL
+2024-02-16,Community Fund,75.00,Foundation,Tampa,FL
+2024-02-17,Relief Fund,600.00,Government,Jacksonville,FL
+2024-02-18,Health Fund,110.25,Anonymous,Tallahassee,FL
+2024-02-19,General Fund,95.00,Corporate,Atlanta,GA
+2024-02-20,Education Fund,180.00,Individual,Savannah,GA
+2024-02-21,Community Fund,420.75,Foundation,Augusta,GA
+2024-02-22,Relief Fund,55.00,Government,Macon,GA
+2024-02-23,Health Fund,140.00,Anonymous,Athens,GA
+2024-02-24,General Fund,260.00,Foundation,Phoenix,AZ
+2024-02-25,Education Fund,150.00,Corporate,Tucson,AZ
+2024-02-26,Community Fund,70.00,Individual,Mesa,AZ
+2024-02-27,Relief Fund,480.00,Government,Scottsdale,AZ
+2024-02-28,Health Fund,115.50,Anonymous,Tempe,AZ

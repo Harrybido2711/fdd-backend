@@ -57,7 +57,7 @@ export const uploadFile = async (req, res) => {
 
         res.json({ 
           success: true, 
-          inserted_rows: results.length 
+          id: results.length 
         });
       } catch (err) {
         console.error('Database insert error:', err);
@@ -92,9 +92,13 @@ export const insertEntry = async (req, res) => {
       state || null
     ]);
 
+    if (result.affectedRows  === 0) {
+      return res.status(404).json({ error: 'No rows affected insert' });
+    }
+
     res.status(201).json({
       success: true,
-      donation: result
+      id: result.insertId
     });
   } catch (err) {
     console.error("Database insert error: ", err);
@@ -111,18 +115,17 @@ export const deleteEntry = async (req, res) => {
       return res.status(400).json({ error: 'Id is required' });
     }
 
-    const result = await pool.query(`
+    const [result] = await pool.query(`
       DELETE FROM donations WHERE id = ?`, 
     [id]);
 
-    if (result.rows.length == 0) {
+    if (result.affectedRows === 0) {
       return res.status(404).json({ 
         error: 'Donation not found' })
     }
 
     res.status(201).json({
       success: true,
-      donation: result
     });
   } catch (err) {
     console.error("Database delete error: ", err);
@@ -146,21 +149,20 @@ export const updateEntry = async (req, res) => {
 
     const fields = [];
     const values = [];
-    let counter = 1;
 
-    if (donated_at !== undefined) { fields.push(`donated_at = $${counter++}`); values.push(donated_at); }
-    if (fund !== undefined) { fields.push(`fund = $${counter++}`); values.push(fund); }
-    if (amount !== undefined) { fields.push(`amount = $${counter++}`); values.push(parseFloat(amount)); }
-    if (category !== undefined) { fields.push(`category = $${counter++}`); values.push(category); }
-    if (city !== undefined) { fields.push(`city = $${counter++}`); values.push(city); }
-    if (state !== undefined) { fields.push(`state = $${counter++}`); values.push(state); }
+    if (donated_at !== undefined) { fields.push(`donated_at = ?`); values.push(donated_at); }
+    if (fund !== undefined) { fields.push(`fund = ?`); values.push(fund); }
+    if (amount !== undefined) { fields.push(`amount = ?`); values.push(parseFloat(amount)); }
+    if (category !== undefined) { fields.push(`category = ?`); values.push(category); }
+    if (city !== undefined) { fields.push(`city = ?`); values.push(city); }
+    if (state !== undefined) { fields.push(`state = ?`); values.push(state); }
 
     if (fields.length === 0) {
       return res.status(400).json({ success: false, error: 'No fields provided for update' });
     }
 
-    values.push(id); // last parameter for WHERE id
-    const result = await pool.query(
+    values.push(id);
+    const [result] = await pool.query(
       `UPDATE donations SET ${fields.join(', ')} WHERE id = ?`,
       values
     );
