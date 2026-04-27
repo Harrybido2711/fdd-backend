@@ -1,6 +1,3 @@
-// Switch this import to swap between Supabase (Postgres) and AWS (MySQL)
-// import provider from '../providers/postgresProvider.js';
-
 import provider from '../providers/mysqlProvider.js';
 
 const userRepository = {
